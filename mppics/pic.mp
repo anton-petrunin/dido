@@ -17,6 +17,38 @@ linecap:=butt;
 %filenametemplate "%j-%1c.svg";
 outputformat := "eps";
 
+beginfig(3)
+save u; u:=1cm;
+save p; path p[];
+pair u[], v[];
+
+z.0=(0,0)*u;
+z.1=(-.05,.25)*u;
+z.2=(0,.5)*u;
+
+p1=z.0..z.1..z.2;
+
+
+
+  z[0] = point 0 of p1;
+  u[0] = (2,0)*u;          % choose the initial vector
+
+  draw z[0]--z[0]+u[0];
+
+  for i = 1 upto 10:
+    z[i] = point (arctime (i*arclength p1/10) of p1) of p1;
+    u[i] = u[i-1] rotated
+      (angle(z[i]-z[i-1]-u[i-1]) - angle(-u[i-1]));
+    draw z[i]--z[i]+u[i] penhair withcolor .5;
+  endfor
+
+drawarrow p1 penbold;
+
+label.bot(btex $R$ etex, z0+u0/2);
+label.lft(btex $\Delta t$ etex, point 1 of p1);
+
+endfig;
+
 
 beginfig(5)
 save u; u:=1cm;
@@ -30,11 +62,18 @@ z.2=(.5,1)*u;
 z.3=z.1+z.v;
 z.4=(2,0)*u;
 
-p1=z.0{(-1,1)}..z.1{z.v}..z.2..z.3{z.v}..z.4;
+x.r= 2*u;
+y.r=3.141592653589793*x.r;
 
+p0=z.0{(-1,1)}..z.1{z.v}..z.2..z.3{z.v}..z.4;
+p1=p0 scaled (y.r/(arclength p0));
+
+fill p1--cycle withcolor .8;
 draw p1 penbold;
-draw z.1--z.3;
-draw ddline(z.0,z.4)(.3,.3) pensemibold;
+draw (z.1--z.3) scaled (y.r/(arclength p0));
+draw ddline(z.0,z.4)(.3,.3) scaled (y.r/(arclength p0)) pensemibold;
+
+label(btex $F$ etex, .5[z.0,z.4]+(0,.5)*u);
 
 endfig;
 
@@ -84,6 +123,44 @@ draw subpath (1.5,3) of p1 penbold;
 drawarrow subpath (0, arctime arclength p2/2  of p2) of p2 penbold;
 draw subpath (arctime arclength p2/2  of p2, arctime arclength p2 of p2) of p2 penbold;
 draw ddline(z.o-u0,z.3)(.1,.1) pensemibold;
+
+z.lab=point .7 of p1;
+
+label.lft(btex $\gamma$ etex, z.lab);
+whitelabel(btex $F$ etex, (1.4,0)*u+z.lab);
+whitelabel(btex $D$ etex, (x.o,y.lab));
+
+endfig;
+
+beginfig(15)
+save u; u:=1cm;
+save p; path p[];
+pair u[], v[];
+
+z.0=(0,1.4)*u;
+z.1=(.2,.6)*u;
+z.2=(0,0)*u;
+
+p1=z.0..z.1..z.2;
+
+
+
+  z[0] = point 0 of p1;
+  u[0] = (2cm,0) rotated -10;          % choose the initial vector
+
+  for i = 1 upto 20:
+    z[i] = point (arctime (i*arclength p1/20) of p1) of p1;
+    u[i] = u[i-1] rotated
+      (angle(z[i]-z[i-1]-u[i-1]) - angle(-u[i-1]));
+    draw z[i]--z[i]+u[i] penhair withcolor .5;
+  endfor
+
+draw z7--z7+u7;
+whitelabelarcsprof(z7+u7, z7, z7+ direction (arctime (7*arclength p1/20) of p1) of p1, 10, 8, btex $\alpha$ etex);
+
+
+drawarrow subpath (0,1) of p1 penbold;
+draw subpath (1,2) of p1 penbold;
 
 endfig;
 
