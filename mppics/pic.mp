@@ -1,6 +1,7 @@
 input macros
 input hatching
 input mparrows
+input bike
 
 verbatimtex
 %&latex
@@ -16,6 +17,58 @@ linecap:=butt;
 %linejoin:=mitered;
 %filenametemplate "%j-%1c.svg";
 outputformat := "eps";
+
+beginfig(1);
+save u; u:=1cm;
+save p; path p[];
+pair v[];
+
+z.p=(0,0)*u;
+z.u=(2,0)*u;
+
+p1 :=
+  (0,0)*u%{down}
+  .. tension 1.2 .. (2.5,-1.15)*u%{right}
+  .. tension 1.2 .. (5,0)*u%{(.1,1)}
+  .. tension 1.2 .. (2.5,.9)*u%{left}
+  .. tension 1.2 .. cycle;
+
+for i = 1 upto 40:
+z[i] = point (directiontime right of (p1 rotated (-(-87+i*360/40)))) of p1;
+v[i] = 2*u*unitvector(dir(-87+i*360/40));
+endfor
+
+for i = 1 upto 40:
+draw z[i]--z[i]+v[i] penhair withcolor .5;
+endfor
+
+draw p1 penbold;
+
+draw
+for i = 1 upto 40:
+z[i]+v[i]
+...
+endfor
+cycle penbold;
+
+draw_bicycle(z[5], z[5]+v[5], z[6]+v[6]-z[4]-v[4]);
+draw z[5]--z[5]+v[5] penbold;
+Dot z[5],z[5]+v[5];
+
+draw_bicycle(z[29], z[29]+v[29], z[30]+v[30]-z[28]-v[28]);
+draw z[29]--z[29]+v[29] penbold;
+Dot z[29],z[29]+v[29];
+
+draw_bicycle(z[15], z[15]+v[15], z[16]+v[16]-z[14]-v[14]);
+draw z[15]--z[15]+v[15] penbold;
+Dot z[15],z[15]+v[15];
+
+
+whitelabel(btex $R$ etex rotated angle(v[15]),  .5[z[15], z[15]+v[15]]+(-1,2));
+label.ulft(btex $Z$ etex,  z[15]);
+whitelabel.rt(btex $P$ etex,  z[15]+v[15]);
+endfig;
+
 
 beginfig(3)
 save u; u:=1cm;
@@ -69,12 +122,13 @@ p0=z.0{(-1,1)}..z.1{z.v}..z.2..z.3{z.v}..z.4;
 p1=p0 scaled (y.r/(arclength p0));
 
 fill p1--cycle withcolor .8;
-draw p1 penbold;
+drawarrow subpath (0,3.5) of p1 penbold;
+draw subpath (3.5,4) of p1 penbold;
 draw (z.1--z.3) scaled (y.r/(arclength p0));
 draw ddline(z.0,z.4)(.3,.3) scaled (y.r/(arclength p0)) pensemibold;
 
 label(btex $F$ etex, .5[z.0,z.4]+(0,.5)*u);
-
+label.urt(btex $\gamma$ etex, point 3.5 of p1);
 endfig;
 
 beginfig(10)
