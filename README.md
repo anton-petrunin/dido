@@ -1,4 +1,4 @@
-##Сборка статьи
+## METAPOST+LaTeX+Biber
 
 `cd mppics/`<br>
 `mpost pic`<br>
@@ -7,8 +7,6 @@
 `biber dido`<br>
 `pdflatex dido`<br>
 
-##Файлы
+## Файлы
 
-Создать архив со всеми нужными файлами:
-
-`zip -r arXiv.zip -@ < arXiv.txt`
+`zip -X arXiv.zip -@ < arXiv.txt`
