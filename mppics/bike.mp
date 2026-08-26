@@ -41,15 +41,15 @@ linecap := rounded;
   % Draw wheels first, in gray.
   draw rearwheel
     withpen pencircle scaled wheel_width
-    withcolor .5;
+    withcolor .7;
 
   draw frontwheel
     withpen pencircle scaled wheel_width
-    withcolor .5;
+    withcolor .7;
 
     % Steering handlebar.
   draw handlebar
-    withpen pencircle scaled 1.6bp withcolor .5;
+    withpen pencircle scaled 1.6bp withcolor .7;
 endgroup;
 
 enddef;
