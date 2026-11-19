@@ -216,6 +216,11 @@ whitelabelarcsprof(z7+u7, z7, z7+ direction (arctime (7*arclength p1/20) of p1) 
 drawarrow subpath (0,1) of p1 penbold;
 draw subpath (1,2) of p1 penbold;
 
+dOt z7,z7+u7;
+
+label.lft(btex $P$ etex, z7);
+label.rt(btex $Z$ etex, z7+u7);
+
 endfig;
 
 beginfig(20)
