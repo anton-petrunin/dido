@@ -209,12 +209,12 @@ draw ddline(z.o-u0,z.3)(.1,.1) pensemibold;
 
 z.lab=point .7 of p1;
 
-z.X=(.4,0)*u+z.lab;
-dOt z.X;
+z.X=.55[z.0,z.3] +(0,.07)*u;
+Dot z.X;
 
 label.lft(btex $\gamma$ etex, z.lab);
-whitelabel(btex $F$ etex, (1.4,0)*u+z.lab);
-whitelabel(btex $D$ etex, (x.o,y.lab));
+whitelabel(btex $F$ etex, (1.4,.5)*u+z.lab);
+whitelabel(btex $D$ etex, (x.o,y.lab +.5*u));
 whitelabel.top(btex $X$ etex, z.X);
 endfig;
 
