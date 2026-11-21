@@ -23,6 +23,13 @@ save u; u:=1cm;
 save p; path p[];
 pair v[];
 
+color c[];
+
+c1 := (64/255, 224/255, 208/255);
+c2 := (255/255, 128/255, 191/255);
+c3 := (255/255, 179/255,  71/255);
+c0:=c3;
+
 z.p=(0,0)*u;
 z.u=(2,0)*u;
 
@@ -39,7 +46,7 @@ v[i] = 2*u*unitvector(dir(-87+i*360/40));
 endfor
 
 for i = 1 upto 40:
-draw z[i]--z[i]+v[i] penhair withcolor .5;
+draw z[i]--z[i]+v[i] penhair withcolor c1;
 endfor
 
 draw p1 penbold;
@@ -75,6 +82,14 @@ save u; u:=1cm;
 save p; path p[];
 pair u[], v[];
 
+
+color c[];
+
+c1 := (64/255, 224/255, 208/255);
+c2 := (255/255, 128/255, 191/255);
+c3 := (255/255, 179/255,  71/255);
+c0:=c3;
+
 z.0=(0,0)*u;
 z.1=(-.05,.25)*u;
 z.2=(0,.5)*u;
@@ -92,7 +107,7 @@ p1=z.0..z.1..z.2;
     z[i] = point (arctime (i*arclength p1/10) of p1) of p1;
     u[i] = u[i-1] rotated
       (angle(z[i]-z[i-1]-u[i-1]) - angle(-u[i-1]));
-    draw z[i]--z[i]+u[i] penhair withcolor .5;
+    draw z[i]--z[i]+u[i] penhair  withcolor c1;
   endfor
 
 drawarrow p1 penbold;
@@ -106,6 +121,13 @@ endfig;
 beginfig(5)
 save u; u:=1cm;
 save p; path p[];
+
+color c[];
+
+c1 := (64/255, 224/255, 208/255);
+c2 := (255/255, 128/255, 191/255);
+c3 := (255/255, 179/255,  71/255);
+c0:=c3;
 
 z.v=(1,0.1)*u;
 
@@ -121,7 +143,7 @@ y.r=3.141592653589793*x.r;
 p0=z.0{(-1,1)}..z.1{z.v}..z.2..z.3{z.v}..z.4;
 p1=p0 scaled (y.r/(arclength p0));
 
-fill p1--cycle withcolor .8;
+fill p1--cycle withcolor .7;
 drawarrow subpath (0,3.5) of p1 penbold;
 draw subpath (3.5,4) of p1 penbold;
 draw (z.1--z.3) scaled (y.r/(arclength p0));
@@ -135,6 +157,13 @@ beginfig(10)
 save u; u:=1cm;
 save p; path p[];
 pair u[], v[];
+
+color c[];
+
+c1 := (64/255, 224/255, 208/255);
+c2 := (255/255, 128/255, 191/255);
+c3 := (255/255, 179/255,  71/255);
+c0:=c3;
 
 z.0=(0,0)*u;
 z.1=(-.7,1)*u;
@@ -165,7 +194,7 @@ vardef draw_hairs(expr p) =
     z[i] := point (arctime (i*arclength p/40) of p) of p;
     u[i] := u[i-1] rotated
       (angle(z[i]-z[i-1]-u[i-1]) - angle(-u[i-1]));
-    draw z[i]--z[i]+u[i] penhair withcolor .5;
+    draw z[i]--z[i]+u[i] penhair withcolor c1;
   endfor
 enddef;
 
@@ -180,9 +209,55 @@ draw ddline(z.o-u0,z.3)(.1,.1) pensemibold;
 
 z.lab=point .7 of p1;
 
+z.X=(.4,0)*u+z.lab;
+dOt z.X;
+
 label.lft(btex $\gamma$ etex, z.lab);
 whitelabel(btex $F$ etex, (1.4,0)*u+z.lab);
 whitelabel(btex $D$ etex, (x.o,y.lab));
+whitelabel.top(btex $X$ etex, z.X);
+endfig;
+
+beginfig(13)
+save u; u:=1cm;
+save p; path p[];
+pair u[], v[];
+
+color c[];
+
+c1 := (64/255, 224/255, 208/255);
+c2 := (255/255, 128/255, 191/255);
+c3 := (255/255, 179/255,  71/255);
+c0:=c3;
+
+z.0=(0,0)*u;
+z.1=(-.1,.25)*u;
+z.2=(-.15,.5)*u;
+
+p1=z.0..z.1..z.2;
+
+
+
+  z[0] = point 0 of p1;
+  u[0] = (2,0)*u;          % choose the initial vector
+
+  draw z[0]--z[0]+u[0] withcolor c1;
+  draw ddline(z[0],z[0]+u[0])(-1,2) withcolor c2;
+
+  for i = 1 upto 10:
+    z[i] = point (arctime (i*arclength p1/10) of p1) of p1;
+    u[i] = u[i-1] rotated
+      (angle(z[i]-z[i-1]-u[i-1]) - angle(-u[i-1]));
+    draw z[i]--z[i]+u[i] penhair withcolor c1;
+    draw ddline(z[i],z[i]+u[i])(-1,2) penhair withcolor c2;
+  endfor
+
+drawarrow p1 penbold;
+
+label.bot(btex рама etex, z0+u0/2);
+label.top(btex хвост etex, z0+2.5*u0/2);
+
+clip currentpicture to (-1,-1)*u--(-1,1)*u--(3,1)*u--(3,-1)*u--cycle;
 
 endfig;
 
@@ -190,6 +265,13 @@ beginfig(15)
 save u; u:=1cm;
 save p; path p[];
 pair u[], v[];
+
+color c[];
+
+c1 := (64/255, 224/255, 208/255);
+c2 := (255/255, 128/255, 191/255);
+c3 := (255/255, 179/255,  71/255);
+c0:=c3;
 
 z.0=(0,1.4)*u;
 z.1=(.2,.6)*u;
@@ -206,7 +288,7 @@ p1=z.0..z.1..z.2;
     z[i] = point (arctime (i*arclength p1/20) of p1) of p1;
     u[i] = u[i-1] rotated
       (angle(z[i]-z[i-1]-u[i-1]) - angle(-u[i-1]));
-    draw z[i]--z[i]+u[i] penhair withcolor .5;
+    draw z[i]--z[i]+u[i] penhair withcolor c1;
   endfor
 
 draw z7--z7+u7;
@@ -227,6 +309,13 @@ beginfig(20)
 save u; u:=1cm;
 save p; path p[];
 pair u[], v[];
+
+color c[];
+
+c1 := (64/255, 224/255, 208/255);
+c2 := (255/255, 128/255, 191/255);
+c3 := (255/255, 179/255,  71/255);
+c0:=c3;
 
 z.0=(0,0)*u;
 z.1=(-.7,1)*u;
@@ -253,7 +342,7 @@ vardef draw_hairs(expr p) =
     z[i] := point (arctime (i*arclength p/40) of p) of p;
     u[i] := u[i-1] rotated
       (angle(z[i]-z[i-1]-u[i-1]) - angle(-u[i-1]));
-    draw z[i]--z[i]+u[i] penhair withcolor .5;
+    draw z[i]--z[i]+u[i] penhair withcolor c1;
   endfor
 enddef;
 
