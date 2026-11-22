@@ -218,6 +218,67 @@ whitelabel(btex $D$ etex, (x.o,y.lab +.5*u));
 whitelabel.top(btex $X$ etex, z.X);
 endfig;
 
+beginfig(11)
+save u; u:=1cm;
+save p; path p[];
+pair u[], v[];
+
+color c[];
+
+c1 := (64/255, 224/255, 208/255);
+c2 := (255/255, 128/255, 191/255);
+c3 := (255/255, 179/255,  71/255);
+c0:=c3;
+
+z.0=(0,0)*u;
+z.1=(-.7,1)*u;
+z.2=(2,1)*u;
+z.3=(2,0)*u;
+
+x.r= 2*u;
+y.r=3.141592653589793*x.r;
+
+p0=(z.0..z.1..z.2..z.3);
+
+p1=p0 scaled (y.r/(arclength p0));
+
+z.o=(-6,0)*u;
+
+p2=arc((-x.r,0),(0,x.r),(x.r,0)) shifted z.o;
+
+u0 = (x.r,0);
+
+vardef draw_hairs(expr p) =
+  save z, u;
+  pair z[], u[];
+
+  z[0] := point 0 of p;
+  u[0] := (x.r,0);          % choose the initial vector
+
+  for i = 1 upto 40:
+    z[i] := point (arctime (i*arclength p/40) of p) of p;
+    u[i] := u[i-1] rotated
+      (angle(z[i]-z[i-1]-u[i-1]) - angle(-u[i-1]));
+    draw z[i]--z[i]+u[i] penhair withcolor c1;
+  endfor
+
+draw_bicycle(z[40]+u[40], z[40], z[40]-z[39]);
+draw z[40]--z[40]+u[40] penbold;
+Dot z[40],z[40]+u[40];
+enddef;
+
+draw_hairs(p1);
+%draw_hairs(p2);
+
+drawarrow subpath (0,1.5) of p1 penbold;
+draw subpath (1.5,3) of p1 penbold;
+%drawarrow subpath (0, arctime arclength p2/2  of p2) of p2 penbold;
+%draw subpath (arctime arclength p2/2  of p2, arctime arclength p2 of p2) of p2 penbold;
+draw ddline(point 0 of p1,point 3 of p1)(.2,.2) pensemibold;
+
+
+endfig;
+
 beginfig(13)
 save u; u:=1cm;
 save p; path p[];
